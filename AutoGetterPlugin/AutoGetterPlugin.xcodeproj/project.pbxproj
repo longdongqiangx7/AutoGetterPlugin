@@ -12,7 +12,35 @@
 		4723A94A1EFBF3E7007E79AC /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4723A9491EFBF3E7007E79AC /* ViewController.m */; };
 		4723A94C1EFBF3E7007E79AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4723A94B1EFBF3E7007E79AC /* Assets.xcassets */; };
 		4723A94F1EFBF3E7007E79AC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4723A94D1EFBF3E7007E79AC /* Main.storyboard */; };
+		476281991EFCB078003E5304 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 476281981EFCB078003E5304 /* Cocoa.framework */; };
+		4762819F1EFCB078003E5304 /* SourceEditorExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4762819E1EFCB078003E5304 /* SourceEditorExtension.m */; };
+		476281A21EFCB078003E5304 /* SourceEditorCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 476281A11EFCB078003E5304 /* SourceEditorCommand.m */; };
+		476281A61EFCB078003E5304 /* AutoGetter.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 476281961EFCB078003E5304 /* AutoGetter.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		476281A41EFCB078003E5304 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4723A9371EFBF3E6007E79AC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 476281951EFCB078003E5304;
+			remoteInfo = AutoGetter;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		476281AA1EFCB078003E5304 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				476281A61EFCB078003E5304 /* AutoGetter.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		4723A93F1EFBF3E6007E79AC /* AutoGetterPlugin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AutoGetterPlugin.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -24,6 +52,15 @@
 		4723A94B1EFBF3E7007E79AC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4723A94E1EFBF3E7007E79AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4723A9501EFBF3E7007E79AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		476281961EFCB078003E5304 /* AutoGetter.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AutoGetter.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		476281981EFCB078003E5304 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		4762819C1EFCB078003E5304 /* AutoGetter.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AutoGetter.entitlements; sourceTree = "<group>"; };
+		4762819D1EFCB078003E5304 /* SourceEditorExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SourceEditorExtension.h; sourceTree = "<group>"; };
+		4762819E1EFCB078003E5304 /* SourceEditorExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SourceEditorExtension.m; sourceTree = "<group>"; };
+		476281A01EFCB078003E5304 /* SourceEditorCommand.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SourceEditorCommand.h; sourceTree = "<group>"; };
+		476281A11EFCB078003E5304 /* SourceEditorCommand.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SourceEditorCommand.m; sourceTree = "<group>"; };
+		476281A31EFCB078003E5304 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		47DEE7931EFD12980014143E /* SourceEditorHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SourceEditorHeader.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -34,6 +71,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		476281931EFCB078003E5304 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				476281991EFCB078003E5304 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -41,6 +86,8 @@
 			isa = PBXGroup;
 			children = (
 				4723A9411EFBF3E6007E79AC /* AutoGetterPlugin */,
+				4762819A1EFCB078003E5304 /* AutoGetter */,
+				476281971EFCB078003E5304 /* Frameworks */,
 				4723A9401EFBF3E6007E79AC /* Products */,
 			);
 			sourceTree = "<group>";
@@ -49,6 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				4723A93F1EFBF3E6007E79AC /* AutoGetterPlugin.app */,
+				476281961EFCB078003E5304 /* AutoGetter.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -76,6 +124,36 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		476281971EFCB078003E5304 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				476281981EFCB078003E5304 /* Cocoa.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4762819A1EFCB078003E5304 /* AutoGetter */ = {
+			isa = PBXGroup;
+			children = (
+				4762819D1EFCB078003E5304 /* SourceEditorExtension.h */,
+				4762819E1EFCB078003E5304 /* SourceEditorExtension.m */,
+				476281A01EFCB078003E5304 /* SourceEditorCommand.h */,
+				476281A11EFCB078003E5304 /* SourceEditorCommand.m */,
+				47DEE7931EFD12980014143E /* SourceEditorHeader.h */,
+				476281A31EFCB078003E5304 /* Info.plist */,
+				4762819B1EFCB078003E5304 /* Supporting Files */,
+			);
+			path = AutoGetter;
+			sourceTree = "<group>";
+		};
+		4762819B1EFCB078003E5304 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4762819C1EFCB078003E5304 /* AutoGetter.entitlements */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -86,15 +164,34 @@
 				4723A93B1EFBF3E6007E79AC /* Sources */,
 				4723A93C1EFBF3E6007E79AC /* Frameworks */,
 				4723A93D1EFBF3E6007E79AC /* Resources */,
+				476281AA1EFCB078003E5304 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				476281A51EFCB078003E5304 /* PBXTargetDependency */,
 			);
 			name = AutoGetterPlugin;
 			productName = AutoGetterPlugin;
 			productReference = 4723A93F1EFBF3E6007E79AC /* AutoGetterPlugin.app */;
 			productType = "com.apple.product-type.application";
+		};
+		476281951EFCB078003E5304 /* AutoGetter */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 476281A91EFCB078003E5304 /* Build configuration list for PBXNativeTarget "AutoGetter" */;
+			buildPhases = (
+				476281921EFCB078003E5304 /* Sources */,
+				476281931EFCB078003E5304 /* Frameworks */,
+				476281941EFCB078003E5304 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AutoGetter;
+			productName = AutoGetter;
+			productReference = 476281961EFCB078003E5304 /* AutoGetter.appex */;
+			productType = "com.apple.product-type.xcode-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -106,6 +203,11 @@
 				ORGANIZATIONNAME = HChong;
 				TargetAttributes = {
 					4723A93E1EFBF3E6007E79AC = {
+						CreatedOnToolsVersion = 8.3;
+						DevelopmentTeam = 73TY8N98GF;
+						ProvisioningStyle = Automatic;
+					};
+					476281951EFCB078003E5304 = {
 						CreatedOnToolsVersion = 8.3;
 						DevelopmentTeam = 73TY8N98GF;
 						ProvisioningStyle = Automatic;
@@ -126,6 +228,7 @@
 			projectRoot = "";
 			targets = (
 				4723A93E1EFBF3E6007E79AC /* AutoGetterPlugin */,
+				476281951EFCB078003E5304 /* AutoGetter */,
 			);
 		};
 /* End PBXProject section */
@@ -137,6 +240,13 @@
 			files = (
 				4723A94C1EFBF3E7007E79AC /* Assets.xcassets in Resources */,
 				4723A94F1EFBF3E7007E79AC /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		476281941EFCB078003E5304 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -153,7 +263,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		476281921EFCB078003E5304 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4762819F1EFCB078003E5304 /* SourceEditorExtension.m in Sources */,
+				476281A21EFCB078003E5304 /* SourceEditorCommand.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		476281A51EFCB078003E5304 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 476281951EFCB078003E5304 /* AutoGetter */;
+			targetProxy = 476281A41EFCB078003E5304 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		4723A94D1EFBF3E7007E79AC /* Main.storyboard */ = {
@@ -260,12 +387,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = 73TY8N98GF;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = AutoGetterPlugin/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.HC.AutoGetterPlugin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
@@ -273,12 +402,48 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = 73TY8N98GF;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = AutoGetterPlugin/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.HC.AutoGetterPlugin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+			};
+			name = Release;
+		};
+		476281A71EFCB078003E5304 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = AutoGetter/AutoGetter.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 73TY8N98GF;
+				INFOPLIST_FILE = AutoGetter/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = com.HC.AutoGetterPlugin.AutoGetter;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		476281A81EFCB078003E5304 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = AutoGetter/AutoGetter.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 73TY8N98GF;
+				INFOPLIST_FILE = AutoGetter/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_BUNDLE_IDENTIFIER = com.HC.AutoGetterPlugin.AutoGetter;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
@@ -301,6 +466,16 @@
 				4723A9551EFBF3E7007E79AC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		476281A91EFCB078003E5304 /* Build configuration list for PBXNativeTarget "AutoGetter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				476281A71EFCB078003E5304 /* Debug */,
+				476281A81EFCB078003E5304 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
