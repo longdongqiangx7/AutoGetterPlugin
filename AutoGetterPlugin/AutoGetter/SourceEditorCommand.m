@@ -151,8 +151,8 @@
         NSString *line3 = [NSString stringWithFormat:@"    if (!_%@) {", objectName];
         NSString *line4 = [NSString stringWithFormat:@"        _%@ = [[%@ alloc] init];", objectName, className];
         NSString *line9 = [NSString stringWithFormat:@"        _%@.backgroundColor = [UIColor <#whiteColor#>];", objectName];
-         NSString *line2 = [NSString stringWithFormat:@"        _%@.delegate = self;", objectName];
-         NSString *line10 = [NSString stringWithFormat:@"        _%@.dataSource = self;", objectName];
+        NSString *line2 = [NSString stringWithFormat:@"        _%@.delegate = self;", objectName];
+        NSString *line10 = [NSString stringWithFormat:@"        _%@.dataSource = self;", objectName];
         NSString *line5 = [NSString stringWithFormat:@"    }"];
         NSString *line6 = [NSString stringWithFormat:@"    return _%@;", objectName];
         NSString *line7 = [NSString stringWithFormat:@"}"];
@@ -164,13 +164,18 @@
     if ([className isEqualToString:Class_UICollectionView]) {
         NSString *line1 = [NSString stringWithFormat:@"- (%@ *)%@ {", className, objectName];
         NSString *line3 = [NSString stringWithFormat:@"    if (!_%@) {", objectName];
-        NSString *line4 = [NSString stringWithFormat:@"        _%@ = [[%@ alloc] init];", objectName, className];
+        NSString *layout1 = [NSString stringWithFormat:@"        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];"];
+        NSString *layout2 = [NSString stringWithFormat:@"        [layout setScrollDirection:UICollectionViewScrollDirectionVertical];"];
+        NSString *layout3 = [NSString stringWithFormat:@""];
+        NSString *line4 = [NSString stringWithFormat:@"        _%@ = [[%@ alloc] initWithFrame:<#CGRectMake()#> collectionViewLayout:layout];", objectName, className];
+        NSString *line2 = [NSString stringWithFormat:@"        _%@.delegate = self;", objectName];
+        NSString *line10 = [NSString stringWithFormat:@"        _%@.dataSource = self;", objectName];
         NSString *line9 = [NSString stringWithFormat:@"        _%@.backgroundColor = [UIColor <#whiteColor#>];", objectName];
         NSString *line5 = [NSString stringWithFormat:@"    }"];
         NSString *line6 = [NSString stringWithFormat:@"    return _%@;", objectName];
         NSString *line7 = [NSString stringWithFormat:@"}"];
         NSString *line8 = [NSString stringWithFormat:@""];
-        NSMutableArray *lineArrays = [[NSMutableArray alloc] initWithObjects:line1, line3, line4, line9, line5, line6, line7, line8, nil];
+        NSMutableArray *lineArrays = [[NSMutableArray alloc] initWithObjects:line1, line3, layout1, layout2, layout3, line4, line2, line10, line9, line5, line6, line7, line8, nil];
         return [[lineArrays reverseObjectEnumerator] allObjects];
     }
     
@@ -178,12 +183,19 @@
         NSString *line1 = [NSString stringWithFormat:@"- (%@ *)%@ {", className, objectName];
         NSString *line3 = [NSString stringWithFormat:@"    if (!_%@) {", objectName];
         NSString *line4 = [NSString stringWithFormat:@"        _%@ = [[%@ alloc] init];", objectName, className];
+        NSString *line10 = [NSString stringWithFormat:@"        _%@.delegate = self;", objectName];
+        NSString *line11 = [NSString stringWithFormat:@"        _%@.minimumZoomScale = <#(CGFlooat)#>;", objectName];
+        NSString *line12 = [NSString stringWithFormat:@"        _%@.maximumZoomScale = <#(CGFlooat)#>;", objectName];
+        NSString *line13 = [NSString stringWithFormat:@"        _%@.clipsToBounds = YES;", objectName];
+        NSString *line14 = [NSString stringWithFormat:@"        _%@.zoomScale = <#(CGFlooat)#>;", objectName];
+        NSString *line15 = [NSString stringWithFormat:@"        _%@.contentSize = <#(CGSize)#>;", objectName];
+        NSString *line16 = [NSString stringWithFormat:@"        _%@.contentOffset = <#(CGPoint)#>;", objectName];
         NSString *line9 = [NSString stringWithFormat:@"        _%@.backgroundColor = [UIColor <#whiteColor#>];", objectName];
         NSString *line5 = [NSString stringWithFormat:@"    }"];
         NSString *line6 = [NSString stringWithFormat:@"    return _%@;", objectName];
         NSString *line7 = [NSString stringWithFormat:@"}"];
         NSString *line8 = [NSString stringWithFormat:@""];
-        NSMutableArray *lineArrays = [[NSMutableArray alloc] initWithObjects:line1, line3, line4, line9, line5, line6, line7, line8, nil];
+        NSMutableArray *lineArrays = [[NSMutableArray alloc] initWithObjects:line1, line3, line4, line10, line11, line12, line13, line14, line15, line16, line9, line5, line6, line7, line8, nil];
         return [[lineArrays reverseObjectEnumerator] allObjects];
     }
     
