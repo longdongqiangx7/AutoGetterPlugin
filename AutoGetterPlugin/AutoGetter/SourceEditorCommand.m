@@ -14,30 +14,56 @@
 @property (nonatomic, strong) NSMutableArray *propretyArray;
 @property (nonatomic, strong) XCSourceEditorCommandInvocation *invocation;
 @property (nonatomic, assign) NSInteger endLineNumber;
+@property (nonatomic, assign) NSInteger startLineNumber;
 @end
 
 @implementation SourceEditorCommand
 
 - (void)performCommandWithInvocation:(XCSourceEditorCommandInvocation *)invocation completionHandler:(void (^)(NSError * _Nullable nilOrError))completionHandler
 {
-    self.invocation = invocation;
-    [self.propretyArray removeAllObjects];
-    //插件执行类的所有行的内容
-    NSArray *stringArray = [NSArray arrayWithArray:invocation.buffer.lines];
-    if (stringArray.count == 0) {
-        return;
-    }
+    XCSourceTextRange *range = [invocation.buffer.selections firstObject];
     
-    for (NSInteger i = (NSInteger)(stringArray.count - 1); i > 0; i--) {
-        NSString *lineString = stringArray[i];
-        if ([lineString containsString:@"@end"] && !self.endLineNumber) {
-            self.endLineNumber = i;
+    NSString *selectedLines = [invocation.buffer.lines objectAtIndex:range.start.line];
+    NSString *selection = [selectedLines substringWithRange:NSMakeRange(range.start.column, range.end.column - range.start.column)];
+    
+    for (NSInteger i = 0; i < invocation.buffer.lines.count - 1; i++) {
+        NSString *importString = [invocation.buffer.lines objectAtIndex:i];
+        if ([importString containsString:@"@interface"]) {
+            self.startLineNumber = i;
+            break;
         }
     }
     
-    for (NSString *lineString in stringArray) {
-        [self handleString:lineString];
+    BOOL isImported = NO;
+    for (NSInteger i = 0; i <= self.startLineNumber ; i++) {
+        NSString *importString = [invocation.buffer.lines objectAtIndex:i];
+        if ([importString containsString:[NSString stringWithFormat:@"%@.h", selection]]) {
+            isImported = YES;
+            break;
+        }
     }
+    if (isImported == NO) {
+        [invocation.buffer.lines insertObject:[NSString stringWithFormat:@"#import \"%@.h\"", selection] atIndex:self.startLineNumber - 1];
+    }
+    
+    self.invocation = invocation;
+    [self.propretyArray removeAllObjects];
+    //插件执行类的所有行的内容
+//    NSArray *stringArray = [NSArray arrayWithArray:invocation.buffer.lines];
+//    if (stringArray.count == 0) {
+//        return;
+//    }
+//    
+//    for (NSInteger i = (NSInteger)(stringArray.count - 1); i > 0; i--) {
+//        NSString *lineString = stringArray[i];
+//        if ([lineString containsString:@"@end"] && !self.endLineNumber) {
+//            self.endLineNumber = i;
+//        }
+//    }
+//    
+//    for (NSString *lineString in stringArray) {
+//        [self handleString:lineString];
+//    }
     completionHandler(nil);
 }
 
