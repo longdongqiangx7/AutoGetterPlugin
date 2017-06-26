@@ -12,7 +12,35 @@
 		471F01C71F00FA5A00034C89 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 471F01C61F00FA5A00034C89 /* ViewController.m */; };
 		471F01C91F00FA5A00034C89 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 471F01C81F00FA5A00034C89 /* Assets.xcassets */; };
 		471F01CC1F00FA5A00034C89 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 471F01CA1F00FA5A00034C89 /* Main.storyboard */; };
+		471F01DA1F00FCDB00034C89 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 471F01D91F00FCDB00034C89 /* Cocoa.framework */; };
+		471F01E01F00FCDB00034C89 /* SourceEditorExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 471F01DF1F00FCDB00034C89 /* SourceEditorExtension.m */; };
+		471F01E31F00FCDB00034C89 /* SourceEditorCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 471F01E21F00FCDB00034C89 /* SourceEditorCommand.m */; };
+		471F01E71F00FCDB00034C89 /* AutoImport.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 471F01D71F00FCDB00034C89 /* AutoImport.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		471F01E51F00FCDB00034C89 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 471F01B41F00FA5A00034C89 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 471F01D61F00FCDB00034C89;
+			remoteInfo = AutoImport;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		471F01EB1F00FCDB00034C89 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				471F01E71F00FCDB00034C89 /* AutoImport.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		471F01BC1F00FA5A00034C89 /* AutoImportPlugin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AutoImportPlugin.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -24,6 +52,14 @@
 		471F01C81F00FA5A00034C89 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		471F01CB1F00FA5A00034C89 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		471F01CD1F00FA5A00034C89 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		471F01D71F00FCDB00034C89 /* AutoImport.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AutoImport.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		471F01D91F00FCDB00034C89 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		471F01DD1F00FCDB00034C89 /* AutoImport.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AutoImport.entitlements; sourceTree = "<group>"; };
+		471F01DE1F00FCDB00034C89 /* SourceEditorExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SourceEditorExtension.h; sourceTree = "<group>"; };
+		471F01DF1F00FCDB00034C89 /* SourceEditorExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SourceEditorExtension.m; sourceTree = "<group>"; };
+		471F01E11F00FCDB00034C89 /* SourceEditorCommand.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SourceEditorCommand.h; sourceTree = "<group>"; };
+		471F01E21F00FCDB00034C89 /* SourceEditorCommand.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SourceEditorCommand.m; sourceTree = "<group>"; };
+		471F01E41F00FCDB00034C89 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -34,6 +70,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		471F01D41F00FCDB00034C89 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				471F01DA1F00FCDB00034C89 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -41,6 +85,8 @@
 			isa = PBXGroup;
 			children = (
 				471F01BE1F00FA5A00034C89 /* AutoImportPlugin */,
+				471F01DB1F00FCDB00034C89 /* AutoImport */,
+				471F01D81F00FCDB00034C89 /* Frameworks */,
 				471F01BD1F00FA5A00034C89 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -49,6 +95,7 @@
 			isa = PBXGroup;
 			children = (
 				471F01BC1F00FA5A00034C89 /* AutoImportPlugin.app */,
+				471F01D71F00FCDB00034C89 /* AutoImport.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -76,6 +123,35 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		471F01D81F00FCDB00034C89 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				471F01D91F00FCDB00034C89 /* Cocoa.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		471F01DB1F00FCDB00034C89 /* AutoImport */ = {
+			isa = PBXGroup;
+			children = (
+				471F01DE1F00FCDB00034C89 /* SourceEditorExtension.h */,
+				471F01DF1F00FCDB00034C89 /* SourceEditorExtension.m */,
+				471F01E11F00FCDB00034C89 /* SourceEditorCommand.h */,
+				471F01E21F00FCDB00034C89 /* SourceEditorCommand.m */,
+				471F01E41F00FCDB00034C89 /* Info.plist */,
+				471F01DC1F00FCDB00034C89 /* Supporting Files */,
+			);
+			path = AutoImport;
+			sourceTree = "<group>";
+		};
+		471F01DC1F00FCDB00034C89 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				471F01DD1F00FCDB00034C89 /* AutoImport.entitlements */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -86,15 +162,34 @@
 				471F01B81F00FA5A00034C89 /* Sources */,
 				471F01B91F00FA5A00034C89 /* Frameworks */,
 				471F01BA1F00FA5A00034C89 /* Resources */,
+				471F01EB1F00FCDB00034C89 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				471F01E61F00FCDB00034C89 /* PBXTargetDependency */,
 			);
 			name = AutoImportPlugin;
 			productName = AutoImportPlugin;
 			productReference = 471F01BC1F00FA5A00034C89 /* AutoImportPlugin.app */;
 			productType = "com.apple.product-type.application";
+		};
+		471F01D61F00FCDB00034C89 /* AutoImport */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 471F01E81F00FCDB00034C89 /* Build configuration list for PBXNativeTarget "AutoImport" */;
+			buildPhases = (
+				471F01D31F00FCDB00034C89 /* Sources */,
+				471F01D41F00FCDB00034C89 /* Frameworks */,
+				471F01D51F00FCDB00034C89 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AutoImport;
+			productName = AutoImport;
+			productReference = 471F01D71F00FCDB00034C89 /* AutoImport.appex */;
+			productType = "com.apple.product-type.xcode-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -106,6 +201,11 @@
 				ORGANIZATIONNAME = HChong;
 				TargetAttributes = {
 					471F01BB1F00FA5A00034C89 = {
+						CreatedOnToolsVersion = 8.3;
+						DevelopmentTeam = 73TY8N98GF;
+						ProvisioningStyle = Automatic;
+					};
+					471F01D61F00FCDB00034C89 = {
 						CreatedOnToolsVersion = 8.3;
 						DevelopmentTeam = 73TY8N98GF;
 						ProvisioningStyle = Automatic;
@@ -126,6 +226,7 @@
 			projectRoot = "";
 			targets = (
 				471F01BB1F00FA5A00034C89 /* AutoImportPlugin */,
+				471F01D61F00FCDB00034C89 /* AutoImport */,
 			);
 		};
 /* End PBXProject section */
@@ -137,6 +238,13 @@
 			files = (
 				471F01C91F00FA5A00034C89 /* Assets.xcassets in Resources */,
 				471F01CC1F00FA5A00034C89 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		471F01D51F00FCDB00034C89 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -153,7 +261,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		471F01D31F00FCDB00034C89 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				471F01E01F00FCDB00034C89 /* SourceEditorExtension.m in Sources */,
+				471F01E31F00FCDB00034C89 /* SourceEditorCommand.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		471F01E61F00FCDB00034C89 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 471F01D61F00FCDB00034C89 /* AutoImport */;
+			targetProxy = 471F01E51F00FCDB00034C89 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		471F01CA1F00FA5A00034C89 /* Main.storyboard */ = {
@@ -260,12 +385,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 73TY8N98GF;
 				INFOPLIST_FILE = AutoImportPlugin/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = com.HC.AutoImportPlugin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
@@ -273,12 +401,49 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 73TY8N98GF;
 				INFOPLIST_FILE = AutoImportPlugin/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = com.HC.AutoImportPlugin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+			};
+			name = Release;
+		};
+		471F01E91F00FCDB00034C89 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = AutoImport/AutoImport.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 73TY8N98GF;
+				INFOPLIST_FILE = AutoImport/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_BUNDLE_IDENTIFIER = com.HC.AutoImportPlugin.AutoImport;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		471F01EA1F00FCDB00034C89 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = AutoImport/AutoImport.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 73TY8N98GF;
+				INFOPLIST_FILE = AutoImport/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @executable_path/../../../../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_BUNDLE_IDENTIFIER = com.HC.AutoImportPlugin.AutoImport;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
@@ -299,6 +464,14 @@
 			buildConfigurations = (
 				471F01D11F00FA5A00034C89 /* Debug */,
 				471F01D21F00FA5A00034C89 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		471F01E81F00FCDB00034C89 /* Build configuration list for PBXNativeTarget "AutoImport" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				471F01E91F00FCDB00034C89 /* Debug */,
+				471F01EA1F00FCDB00034C89 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};
