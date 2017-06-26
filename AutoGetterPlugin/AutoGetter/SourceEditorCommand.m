@@ -8,17 +8,19 @@
 
 #import "SourceEditorCommand.h"
 #import "SourceEditorHeader.h"
-#import <Cocoa/Cocoa.h>
 
 @interface SourceEditorCommand()
 
 @property (nonatomic, strong) NSMutableArray *propretyArray;
+@property (nonatomic, strong) XCSourceEditorCommandInvocation *invocation;
+@property (nonatomic, assign) NSInteger endLineNumber;
 @end
 
 @implementation SourceEditorCommand
 
 - (void)performCommandWithInvocation:(XCSourceEditorCommandInvocation *)invocation completionHandler:(void (^)(NSError * _Nullable nilOrError))completionHandler
 {
+    self.invocation = invocation;
     [self.propretyArray removeAllObjects];
     //插件执行类的所有行的内容
     NSArray *stringArray = [NSArray arrayWithArray:invocation.buffer.lines];
@@ -26,34 +28,42 @@
         return;
     }
     
+    for (NSInteger i = (NSInteger)(stringArray.count - 1); i > 0; i--) {
+        NSString *lineString = stringArray[i];
+        if ([lineString containsString:@"@end"] && !self.endLineNumber) {
+            self.endLineNumber = i;
+        }
+    }
+    
     for (NSString *lineString in stringArray) {
         [self handleString:lineString];
     }
-    
     completionHandler(nil);
 }
 
 //对每一行进行处理
 - (void)handleString:(NSString *)string {
     if ([self matchProperty:string]) {
-        NSString *getterString = [self packageGetterWith:string];
-        [self insertGetterStringToClass:getterString];
+        NSArray *getterStringArray = [self packageGetterWith:string];
+        [self insertGetterStringToClass:getterStringArray];
     }
 }
 
 //组装Getter方法
-- (NSString *)packageGetterWith:(NSString *)lineString {
-    if (![lineString containsString:@"IBOutlet"] && ![lineString containsString:@"^"] && ![lineString containsString:@"//"]) {
+- (NSArray *)packageGetterWith:(NSString *)lineString {
+    if (![lineString containsString:@"IBOutlet"] && ![lineString containsString:@"^"] && ![lineString hasPrefix:@"//"]) {
         NSString *className = [self getClassName:lineString];
-        NSString *objectName = [self getClassName:lineString];
+        NSString *objectName = [self getObjectName:lineString];
         return [self makeResultString:className objectName:objectName];
     }
-    return @"";
+    return @[];
 }
 
 //插入到源代码固定位置
-- (void)insertGetterStringToClass:(NSString *)getterString {
-    
+- (void)insertGetterStringToClass:(NSArray *)getterStringArray {
+    for (int i = 0; i < getterStringArray.count; i++) {
+        [self.invocation.buffer.lines insertObject:getterStringArray[i] atIndex:self.endLineNumber];
+    }
 }
 
 #pragma mark - Private
@@ -67,7 +77,8 @@
 - (NSString *)getClassName:(NSString *)lineString {
     NSArray *propertyDescription = [lineString componentsSeparatedByString:@")"];
     propertyDescription = [[propertyDescription lastObject] componentsSeparatedByString:@"*"];
-    return [propertyDescription firstObject];
+    NSString *className = [NSString stringWithFormat:@"%@", [propertyDescription firstObject]];
+    return [className stringByReplacingOccurrencesOfString:@" " withString:@""];
 }
 
 //拿到类的对象
@@ -77,7 +88,7 @@
     
     NSRange range2 = [string rangeOfString:@"[a-zA-Z0-9_]+" options:NSRegularExpressionSearch];
     NSString *obejctName = [string substringWithRange:range2];
-    return obejctName;
+    return [obejctName stringByReplacingOccurrencesOfString:@" " withString:@""];
 }
 
 //判断属性的修饰符
@@ -86,15 +97,13 @@
 }
 
 //根据不同的类生成不同的Getter方法
-- (NSString *)makeResultString:(NSString *)className objectName:(NSString *)objectName{
+- (NSArray *)makeResultString:(NSString *)className objectName:(NSString *)objectName{
     if ([className isEqualToString:Class_CGFloat] || [className isEqualToString:Class_Bool] || [className isEqualToString:Class_NSInteger]) {
-        return @"";
+        return @[];
     }
     
     if ([className isEqualToString:Class_UIView] || [className isEqualToString:Class_UIImageView]) {
-        NSString *resultString;
-        NSString *line1 = [NSString stringWithFormat:@"- (%@ *)%@", className, objectName];
-        NSString *line2 = [NSString stringWithFormat:@"{"];
+        NSString *line1 = [NSString stringWithFormat:@"- (%@ *)%@ {", className, objectName];
         NSString *line3 = [NSString stringWithFormat:@"    if (!_%@) {", objectName];
         NSString *line4 = [NSString stringWithFormat:@"        _%@ = [[%@ alloc] init];", objectName, className];
         NSString *line9 = [NSString stringWithFormat:@"        _%@.backgroundColor = [UIColor <#whiteColor#>];", objectName];
@@ -102,31 +111,91 @@
         NSString *line6 = [NSString stringWithFormat:@"    return _%@;", objectName];
         NSString *line7 = [NSString stringWithFormat:@"}"];
         NSString *line8 = [NSString stringWithFormat:@""];
-        return resultString;
+        NSMutableArray *lineArrays = [[NSMutableArray alloc] initWithObjects:line1, line3, line4, line9, line5, line6, line7, line8, nil];
+        return [[lineArrays reverseObjectEnumerator] allObjects];
     }
     
     if ([className isEqualToString:Class_UITextView] || [className isEqualToString:Class_UITextField] || [className isEqualToString:Class_UILabel] || [className isEqualToString:Class_UISearchBar]) {
-        return @"";
+        NSString *line1 = [NSString stringWithFormat:@"- (%@ *)%@ {", className, objectName];
+        NSString *line3 = [NSString stringWithFormat:@"    if (!_%@) {", objectName];
+        NSString *line4 = [NSString stringWithFormat:@"        _%@ = [[%@ alloc] init];", objectName, className];
+        NSString *line9 = [NSString stringWithFormat:@"        _%@.backgroundColor = [UIColor <#whiteColor#>];", objectName];
+        NSString *line10 = [NSString stringWithFormat:@"        _%@.textColor = [UIColor <#whiteColor#>];", objectName];
+        NSString *line11 = [NSString stringWithFormat:@"        _%@.font = [UIFont systemFontOfSize:<#(CGFloat)#>];", objectName];
+        NSString *line5 = [NSString stringWithFormat:@"    }"];
+        NSString *line6 = [NSString stringWithFormat:@"    return _%@;", objectName];
+        NSString *line7 = [NSString stringWithFormat:@"}"];
+        NSString *line8 = [NSString stringWithFormat:@""];
+        NSMutableArray *lineArrays = [[NSMutableArray alloc] initWithObjects:line1, line3, line4, line9, line10, line11, line5, line6, line7, line8, nil];
+        return [[lineArrays reverseObjectEnumerator] allObjects];
     }
     
     if ([className isEqualToString:Class_UIButton]) {
-        return @"";
+        NSString *line1 = [NSString stringWithFormat:@"- (%@ *)%@ {", className, objectName];
+        NSString *line3 = [NSString stringWithFormat:@"    if (!_%@) {", objectName];
+        NSString *line4 = [NSString stringWithFormat:@"        _%@ = [[%@ buttonWithType:UIButtonTypeCustom];", objectName, className];
+        NSString *line2 = [NSString stringWithFormat:@"        [_%@ addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];", objectName];
+        NSString *line10 = [NSString stringWithFormat:@"        [_%@ setTitle:@\"确定\" forState:UIControlStateNormal]", objectName];
+        NSString *line9 = [NSString stringWithFormat:@"        _%@.backgroundColor = [UIColor <#whiteColor#>];", objectName];
+        NSString *line11 = [NSString stringWithFormat:@"        _%@.titleLabel.font = [UIFont systemFontOfSize:12];", objectName];
+        NSString *line5 = [NSString stringWithFormat:@"    }"];
+        NSString *line6 = [NSString stringWithFormat:@"    return _%@;", objectName];
+        NSString *line7 = [NSString stringWithFormat:@"}"];
+        NSString *line8 = [NSString stringWithFormat:@""];
+        NSMutableArray *lineArrays = [[NSMutableArray alloc] initWithObjects:line1, line3, line4, line2, line10, line9, line11, line5, line6, line7, line8, nil];
+        return [[lineArrays reverseObjectEnumerator] allObjects];
     }
     
     if ([className isEqualToString:Class_UITableView]) {
-        return @"";
+        NSString *line1 = [NSString stringWithFormat:@"- (%@ *)%@ {", className, objectName];
+        NSString *line3 = [NSString stringWithFormat:@"    if (!_%@) {", objectName];
+        NSString *line4 = [NSString stringWithFormat:@"        _%@ = [[%@ alloc] init];", objectName, className];
+        NSString *line9 = [NSString stringWithFormat:@"        _%@.backgroundColor = [UIColor <#whiteColor#>];", objectName];
+         NSString *line2 = [NSString stringWithFormat:@"        _%@.delegate = self;", objectName];
+         NSString *line10 = [NSString stringWithFormat:@"        _%@.dataSource = self;", objectName];
+        NSString *line5 = [NSString stringWithFormat:@"    }"];
+        NSString *line6 = [NSString stringWithFormat:@"    return _%@;", objectName];
+        NSString *line7 = [NSString stringWithFormat:@"}"];
+        NSString *line8 = [NSString stringWithFormat:@""];
+        NSMutableArray *lineArrays = [[NSMutableArray alloc] initWithObjects:line1, line3, line4, line9, line2, line10, line5, line6, line7, line8, nil];
+        return [[lineArrays reverseObjectEnumerator] allObjects];
     }
     
     if ([className isEqualToString:Class_UICollectionView]) {
-        return @"";
+        NSString *line1 = [NSString stringWithFormat:@"- (%@ *)%@ {", className, objectName];
+        NSString *line3 = [NSString stringWithFormat:@"    if (!_%@) {", objectName];
+        NSString *line4 = [NSString stringWithFormat:@"        _%@ = [[%@ alloc] init];", objectName, className];
+        NSString *line9 = [NSString stringWithFormat:@"        _%@.backgroundColor = [UIColor <#whiteColor#>];", objectName];
+        NSString *line5 = [NSString stringWithFormat:@"    }"];
+        NSString *line6 = [NSString stringWithFormat:@"    return _%@;", objectName];
+        NSString *line7 = [NSString stringWithFormat:@"}"];
+        NSString *line8 = [NSString stringWithFormat:@""];
+        NSMutableArray *lineArrays = [[NSMutableArray alloc] initWithObjects:line1, line3, line4, line9, line5, line6, line7, line8, nil];
+        return [[lineArrays reverseObjectEnumerator] allObjects];
     }
     
     if ([className isEqualToString:Class_UIScrollView]) {
-        return @"";
+        NSString *line1 = [NSString stringWithFormat:@"- (%@ *)%@ {", className, objectName];
+        NSString *line3 = [NSString stringWithFormat:@"    if (!_%@) {", objectName];
+        NSString *line4 = [NSString stringWithFormat:@"        _%@ = [[%@ alloc] init];", objectName, className];
+        NSString *line9 = [NSString stringWithFormat:@"        _%@.backgroundColor = [UIColor <#whiteColor#>];", objectName];
+        NSString *line5 = [NSString stringWithFormat:@"    }"];
+        NSString *line6 = [NSString stringWithFormat:@"    return _%@;", objectName];
+        NSString *line7 = [NSString stringWithFormat:@"}"];
+        NSString *line8 = [NSString stringWithFormat:@""];
+        NSMutableArray *lineArrays = [[NSMutableArray alloc] initWithObjects:line1, line3, line4, line9, line5, line6, line7, line8, nil];
+        return [[lineArrays reverseObjectEnumerator] allObjects];
     }
     
-    NSString *resultString;
-    return resultString;
+    NSString *line1 = [NSString stringWithFormat:@"- (%@ *)%@ {", className, objectName];
+    NSString *line3 = [NSString stringWithFormat:@"    if (!_%@) {", objectName];
+    NSString *line4 = [NSString stringWithFormat:@"        _%@ = [[%@ alloc] init];", objectName, className];
+    NSString *line5 = [NSString stringWithFormat:@"    }"];
+    NSString *line6 = [NSString stringWithFormat:@"    return _%@;", objectName];
+    NSString *line7 = [NSString stringWithFormat:@"}"];
+    NSString *line8 = [NSString stringWithFormat:@""];
+    NSMutableArray *lineArrays = [[NSMutableArray alloc] initWithObjects:line1, line3, line4, line5, line6, line7, line8, nil];
+    return [[lineArrays reverseObjectEnumerator] allObjects];
 }
 
 #pragma mark - Getter

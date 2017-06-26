@@ -8,4 +8,5 @@ dependencies: \
   /Applications/Xcode.app/Contents/Developer/Library/Frameworks/XcodeKit.framework/Headers/XCSourceEditorExtension.h \
   /Applications/Xcode.app/Contents/Developer/Library/Frameworks/XcodeKit.framework/Headers/XCSourceEditorCommand.h \
   /Applications/Xcode.app/Contents/Developer/Library/Frameworks/XcodeKit.framework/Headers/XcodeKitDefines.h \
-  /Applications/Xcode.app/Contents/Developer/Library/Frameworks/XcodeKit.framework/Headers/XcodeKit.h
+  /Applications/Xcode.app/Contents/Developer/Library/Frameworks/XcodeKit.framework/Headers/XcodeKit.h \
+  /Users/hc/Desktop/Me/AutoGetterPlugin/AutoGetterPlugin/AutoGetter/SourceEditorHeader.h

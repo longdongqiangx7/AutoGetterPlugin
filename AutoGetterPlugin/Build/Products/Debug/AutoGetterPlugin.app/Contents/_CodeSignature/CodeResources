@@ -27,7 +27,7 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			mxXrsYw0aFEWqrjCH3ac9NX8Zrw=
+			MNh7yVec3qPb1UlCpB0s4w6HeO4=
 			</data>
 			<key>requirement</key>
 			<string>identifier "com.HC.AutoGetterPlugin.AutoGetter" and anchor apple generic and certificate leaf[subject.CN] = "Mac Developer: 215964659@qq.com (44RLEA3C2A)" and certificate 1[field.1.2.840.113635.100.6.2.1] /* exists */</string>
