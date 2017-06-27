@@ -34,7 +34,7 @@
     for (NSInteger i = stringArray.count; i > 0; i--) {
         NSString *lineString = stringArray[i - 1];
         if ([lineString containsString:@"@end"] && !self.endLineNumber) {
-            self.endLineNumber = i - 2;
+            self.endLineNumber = i - 1;
         }
     }
     
@@ -42,7 +42,7 @@
         NSString *lineString = stringArray[i];
         [self handleString:lineString];
     }
-
+    
     completionHandler(nil);
 }
 
