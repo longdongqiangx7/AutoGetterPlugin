@@ -14,13 +14,15 @@
 @property (nonatomic, strong) NSMutableArray *propretyArray;
 @property (nonatomic, strong) XCSourceEditorCommandInvocation *invocation;
 @property (nonatomic, assign) NSInteger endLineNumber;
-@property (nonatomic, assign) NSInteger startLineNumber;
 @end
 
 @implementation SourceEditorCommand
 
 - (void)performCommandWithInvocation:(XCSourceEditorCommandInvocation *)invocation completionHandler:(void (^)(NSError * _Nullable nilOrError))completionHandler
 {
+    XCSourceTextRange *range = [invocation.buffer.selections firstObject];
+    NSInteger startLineNumber = range.start.line;
+    NSInteger endLineNumber = range.end.line;
     self.invocation = invocation;
     [self.propretyArray removeAllObjects];
     //插件执行类的所有行的内容
@@ -29,16 +31,18 @@
         return;
     }
     
-    for (NSInteger i = (NSInteger)(stringArray.count - 1); i > 0; i--) {
-        NSString *lineString = stringArray[i];
+    for (NSInteger i = stringArray.count; i > 0; i--) {
+        NSString *lineString = stringArray[i - 1];
         if ([lineString containsString:@"@end"] && !self.endLineNumber) {
-            self.endLineNumber = i;
+            self.endLineNumber = i - 2;
         }
     }
     
-    for (NSString *lineString in stringArray) {
+    for (NSInteger i = startLineNumber; i <= endLineNumber; i++) {
+        NSString *lineString = stringArray[i];
         [self handleString:lineString];
     }
+
     completionHandler(nil);
 }
 
@@ -52,7 +56,7 @@
 
 //组装Getter方法
 - (NSArray *)packageGetterWith:(NSString *)lineString {
-    if (![lineString containsString:@"IBOutlet"] && ![lineString containsString:@"^"] && ![lineString hasPrefix:@"//"]) {
+    if (![lineString containsString:@"IBOutlet"] && ![lineString containsString:@"^"] && ![lineString hasPrefix:@"//"] && ![lineString containsString:@"assign"]) {
         NSString *className = [self getClassName:lineString];
         NSString *objectName = [self getObjectName:lineString];
         return [self makeResultString:className objectName:objectName];
