@@ -8,6 +8,11 @@
 
 #import "ViewController.h"
 
+@interface ViewController()
+
+@property (nonatomic, strong) NSString *name;
+@end
+
 @implementation ViewController
 
 - (void)viewDidLoad {

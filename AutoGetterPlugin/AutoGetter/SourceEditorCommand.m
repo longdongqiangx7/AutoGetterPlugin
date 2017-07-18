@@ -56,7 +56,7 @@
 
 //组装Getter方法
 - (NSArray *)packageGetterWith:(NSString *)lineString {
-    if (![lineString containsString:@"IBOutlet"] && ![lineString containsString:@"^"] && ![lineString hasPrefix:@"//"] && ![lineString containsString:@"assign"]) {
+    if (![lineString containsString:@"IBOutlet"] && ![lineString containsString:@"^"] && ![self isComment:lineString] && ![lineString containsString:@"assign"]) {
         NSString *className = [self getClassName:lineString];
         NSString *objectName = [self getObjectName:lineString];
         return [self makeResultString:className objectName:objectName];
@@ -72,9 +72,19 @@
 }
 
 #pragma mark - Private
+//判断该行是否被注释
+- (BOOL)isComment:(NSString *)lineString {
+    NSArray *array = [lineString componentsSeparatedByString:@"property"];
+    NSString *string = array[0];
+    if ([string containsString:@"//"]) {
+        return YES;
+    }
+    return NO;
+}
+
 //判断该行是否是属性定义行
 - (BOOL)matchProperty:(NSString *)string {
-    NSPredicate *pre = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"^@property.*;\\n$"];
+    NSPredicate *pre = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"^@property.*.\n$"];
     return [pre evaluateWithObject:string];
 }
 
